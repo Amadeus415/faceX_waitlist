@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- PWA optimized viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover,  minimal-ui">
+    
+    <!-- PWA meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="theme-color" content="#FFFFFF">
+    
+    <!-- PWA icons and manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='icons/icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ url_for('static', filename='icons/icon-512x512.png') }}">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <!-- DaisyUI CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.7.2/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- Neue Montreal Font -->
+    <link rel="stylesheet" href="https://use.typekit.net/qqv4lbc.css">
+
+    <title>{% block title %}FaceX{% endblock %}</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .navbar-scrolled {
+            background-color: rgba(255, 255, 255, 0.9) !important;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .neue-montreal {
+            font-family: "neue-haas-grotesk-display", sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+    </style>
+    
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <!-- Scripts -->
+    {% if request.endpoint == 'main.camera' %}
+    <script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+    {% endif %}
+    
+    {% if request.endpoint == 'main.dashboard' %}
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+    {% endif %}
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <div class="navbar bg-white fixed top-0 z-50 transition-all duration-300 h-12 min-h-0 py-0">
+        <!-- Logo -->
+        <div class="flex-1">
+            <a href="{{ url_for('main.home') }}" class="btn btn-ghost pl-0 h-auto min-h-0 py-0">
+                <div class="flex items-center">
+                    <img src="{{ url_for('static', filename='icons/infinity.svg') }}" alt="FaceX Logo" class="h-6 w-6 ml-4">
+                    <span class="neue-montreal text-black text-sm ml-1">FaceX</span>
+                </div>
+            </a>
+        </div>
+        
+        <!-- Hamburger menu -->
+        <div class="flex-none">
+            <button id="menuButton" class="btn btn-circle btn-ghost text-black h-12 w-12 min-h-0 p-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            
+            <!-- Fullscreen menu -->
+            <div id="fullscreenMenu" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto">
+                <!-- Menu content -->
+                <div class="flex flex-col h-full bg-white">
+                    <!-- Logo at top left with close button -->
+                    <div class="h-12 navbar min-h-0 py-0 flex justify-between items-center border-b border-gray-100 ml-4">
+                        <div class="flex-1">
+                            <a class="btn btn-ghost pl-0 h-auto min-h-0 py-0">
+                                <div class="flex items-center">
+                                    <img src="{{ url_for('static', filename='icons/infinity.svg') }}" alt="FaceX Logo" class="h-6 w-6">
+                                    <span class="neue-montreal text-black text-sm ml-1">FaceX</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="flex-none">
+                            <button id="closeMenu" class="btn btn-circle btn-ghost h-14 w-14 min-h-0 p-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 mr-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Main content with scrolling -->
+                    <div class="flex-1 overflow-y-auto px-4 pb-32">
+                        <!-- Looksmaxing Section -->
+                        <div class="collapse bg-gray-200 rounded-none mb-4 mt-4">
+                            <input type="radio" name="menu-accordion" checked="checked" /> 
+                            <div class="collapse-title font-semibold">
+                                Core Features
+                            </div>
+                            <div class="collapse-content bg-white"> 
+                                <ul class="menu menu-sm">
+                                    <li><a href="{{ url_for('main.dashboard') }}">Progress Pics</a></li>
+                                    <li><a href="{{ url_for('main.dashboard') }}">Routine</a></li>
+                                    <li><a href="{{ url_for('main.dashboard') }}#recommendations">Product Recommendations</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- about link-->
+                        <div class="bg-gray-200 rounded-none mb-4">
+                            <div class="p-4 font-semibold">
+                                <a href="{{ url_for('main.test') }}" class="block w-full">About</a>
+                            </div>
+                        </div>
+                                          
+                        <!-- Testing Section -->
+                        <div class="collapse bg-gray-200 rounded-none mb-4">
+                            <input type="radio" name="menu-accordion" /> 
+                            <div class="collapse-title font-semibold">
+                                Testing
+                            </div>
+                            <div class="collapse-content bg-white"> 
+                                <ul class="menu menu-sm">
+                                    <li><a href="{{ url_for('main.landing') }}">Old landing page</a></li>
+                                    <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                                    <li><a href="{{ url_for('main.test') }}"> test page</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom buttons (fixed) -->
+                    <div class="fixed bottom-0 left-0 right-0 p-6 bg-white border-t border-gray-100 flex flex-col gap-3">
+                        <!-- Take Photo Button -->
+                        <a href="{{ url_for('main.camera') }}" class="btn bg-black text-white border-none w-full normal-case font-medium rounded-xl">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                            </svg>
+                            Take Photo
+                        </a>
+                        <!-- Login/Logout Button -->
+                        {% if 'user_info' in session %}
+                            <div class="flex items-center justify-between bg-gray-50 p-3 rounded-xl">
+                                <div class="flex items-center gap-3">
+                                    {% if session.user_info.picture %}
+                                    <div class="avatar">
+                                        <div class="w-8 rounded-full">
+                                            <img src="{{ session.user_info.picture }}" alt="Profile" />
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <div class="avatar placeholder">
+                                        <div class="bg-gray-200 text-gray-600 rounded-full w-8">
+                                            <span>{{ session.user_info.name[:1] }}</span>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    <span class="text-sm font-medium">{{ session.user_info.name }}</span>
+                                </div>
+                                <a href="{{ url_for('main.logout') }}" class="btn btn-ghost btn-sm">
+                                    Logout
+                                </a>
+                            </div>
+                        {% else %}
+                            <a href="{{ url_for('main.login') }}" class="btn btn-outline w-full normal-case font-medium rounded-xl">
+                                Login / Sign Up
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="h-full pt-6"> <!-- Updated padding-top to match new navbar height -->
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- PWA install prompt -->
+    <div id="pwa-prompt" class="hidden fixed bottom-0 left-0 right-0 bg-white p-4 shadow-lg z-50">
+        <div class="flex justify-between items-center">
+            <p>Add to Home Screen</p>
+            <button id="pwa-close" class="text-gray-500">&times;</button>
+        </div>
+    </div>
+
+    <!-- PWA service worker registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/static/js/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+
+        // Handle PWA install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwa-prompt').classList.remove('hidden');
+        });
+
+        // Close PWA prompt
+        document.getElementById('pwa-close')?.addEventListener('click', () => {
+            document.getElementById('pwa-prompt').classList.add('hidden');
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+        });
+
+        // Toggle fullscreen menu
+        const menuButton = document.getElementById('menuButton');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const closeMenu = document.getElementById('closeMenu');
+
+        menuButton.addEventListener('click', () => {
+            fullscreenMenu.classList.remove('hidden');
+        });
+
+        closeMenu.addEventListener('click', () => {
+            fullscreenMenu.classList.add('hidden');
+        });
+
+        // Close menu when clicking outside
+        window.addEventListener('click', (e) => {
+            if (!menuButton.contains(e.target) && !fullscreenMenu.contains(e.target)) {
+                fullscreenMenu.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

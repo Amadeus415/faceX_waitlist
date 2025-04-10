@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faceX Waitlist</title>
+    <link href="dist/output.css" rel="stylesheet">
+    <style>
+        /* Basic styles for image comparison if needed, Tailwind handles most */
+        .image-comparison-container { touch-action: none; } /* Prevent default touch actions like scrolling */
+        
+        /* Navbar styles */
+        .navbar-logo {
+            font-family: sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+    </style>
+</head>
+<body class="bg-white text-black flex flex-col items-center justify-center min-h-screen font-sans px-4 py-8 pt-16">
+
+    <!-- Navbar -->
+    <div class="fixed top-0 left-0 right-0 bg-white z-50 shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between h-12">
+                <div class="flex items-center">
+                    <img src="/assets/infinity.svg" alt="FaceX Logo" class="h-6 w-6">
+                    <span class="navbar-logo text-black text-sm ml-1">FaceX</span>
+                </div>
+                <a href="#waitlist-form" class="text-sm px-4 py-1.5 bg-white text-black border border-black rounded-md hover:bg-gray-100 transition-colors">Join Waitlist</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="w-full max-w-2xl text-center">
+        <h1 class="text-4xl font-bold mb-2">Reveal Your Natural Beauty Potential</h1>
+        <p class="text-gray-600 mb-8">Gain exclusive early access to faceX and embark on your personal enhancement journey today.</p>
+    </div>
+
+
+
+    <!-- Interactive Image Comparison -->
+    <div class="w-full max-w-sm md:max-w-md mb-10">
+        <div class="image-comparison-container relative w-full h-auto rounded-lg overflow-hidden ">
+            <!-- Before Image (Base Layer) -->
+            <!-- NOTE: Update these image paths if they are different in your waitlist project -->
+            <img src="/assets/square1.0.svg" alt="Before" class="before-image w-full h-auto object-cover">
+
+            <!-- After Image (Overlay Layer) -->
+            <img src="/assets/square2.jpg" alt="After" class="after-image absolute top-0 left-0 w-full h-auto object-cover" style="clip-path: inset(0 50% 0 0);">
+
+            <!-- Draggable Handle -->
+            <div class="comparison-handle absolute top-0 bottom-0 w-1 bg-black cursor-ew-resize" style="left: 50%;">
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-black border-2 border-white shadow-md flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-white rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l4-4 4 4m0 6l-4 4-4-4" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="w-full py-3 border-t border-b border-gray-200 mt-3 bg-gray-50 rounded-md">
+            <div class="flex font-sans text-xs">
+                <div class="w-1/2 pr-2 flex justify-center border-r border-gray-200">
+                    <span class="text-gray-600 uppercase font-semibold tracking-wide">Before: Natural Selfie</span>
+                </div>
+                <div class="w-1/2 pl-2 flex justify-center">
+                     <span class="text-gray-600 uppercase font-semibold tracking-wide">After: 4 Month Results</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Features Section -->
+    <div class="w-full max-w-md mb-10 text-center">
+        <h2 class="text-2xl font-semibold mb-4">What You'll Get</h2>
+        <ul class="space-y-2 text-gray-700 text-sm list-none text-center">
+            <li>📈 Attractiveness Scoring & Potential Analysis</li>
+            <li>🧬 Detailed Facial Analysis & Ethnicity Estimation</li>
+            <li>⭐ Celebrity Look-Alikes & Attraction Insights</li>
+            <li>📅 Personalized Routine & Product Recommendations</li>
+        </ul>
+    </div>
+    <!-- Waitlist Form -->
+    <div id="waitlist-form" class="w-full max-w-sm">
+        <form action="https://formspree.io/f/xqapwbkr" method="POST" class="space-y-4">
+            <input type="hidden" name="_next" value="/thank-you.html">
+            <div>
+                <label for="email" class="sr-only">Email address</label>
+                <input type="email" name="email" id="email" required
+                       class="block w-full px-4 py-3 border border-black rounded-md shadow-sm placeholder-gray-500 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                       placeholder="Enter your email address">
+            </div>
+            <div class="mb-2 text-center">
+                <div class="text-sm font-medium text-black">📢 First 1,000 people get free usage!</div>
+                <div class="text-xs text-gray-600 mt-1">903 people have already joined — only 97 spots left</div>
+            </div>
+            <div>
+                <button type="submit"
+                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                    Join Waitlist
+                </button>
+            </div>
+        </form>
+        <p class="mt-4 text-center text-xs text-gray-500">Be the first to know. No spam.</p>
+    </div>
+
+    <!-- Footer space -->
+    <div class="h-16"></div>
+
+    <!-- Include the image comparison script -->
+    <!-- NOTE: Make sure this path is correct for your waitlist project -->
+    <script src="/js/image-comparison.js"></script>
+</body>
+</html> 
